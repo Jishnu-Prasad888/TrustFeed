@@ -1,0 +1,36 @@
+version: '3.9'
+
+# NOTE: Ollama must be running on your HOST machine (not in Docker)
+# because it needs GPU access. Run: ollama serve
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - trustfeed_db:/app/trustfeed.db
+      - trustfeed_chroma:/app/chromadb_store
+    environment:
+      - OLLAMA_HOST=host.docker.internal  # macOS/Windows
+      # - OLLAMA_HOST=172.17.0.1          # Linux (docker bridge)
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  trustfeed_db:
+  trustfeed_chroma:
