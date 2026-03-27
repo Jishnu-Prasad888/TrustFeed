@@ -100,6 +100,8 @@ def init_db():
             "ollama_model":            "llama3",
             "recency_decay_lambda":    "0.05",
             "max_rag_chunks":          "8",
+            "tweets_limit":            "20",
+            "twitter_cookies_path":    "",
         }
         for k, v in defaults.items():
             if not session.get(AppSettings, k):

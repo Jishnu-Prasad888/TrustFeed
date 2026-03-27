@@ -3,8 +3,10 @@ scraper/embedder.py — Embeds posts into ChromaDB with trust + timestamp metada
 Uses sentence-transformers locally (no API key needed).
 """
 from __future__ import annotations
+
 import logging
 from datetime import datetime
+
 import chromadb
 from chromadb.config import Settings
 from sentence_transformers import SentenceTransformer

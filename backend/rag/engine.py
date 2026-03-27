@@ -13,6 +13,7 @@ import logging
 import math
 from datetime import datetime, timezone
 from typing import Any
+
 import ollama
 
 from scraper.embedder import get_chroma, get_model
